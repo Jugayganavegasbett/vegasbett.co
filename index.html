@@ -23,7 +23,7 @@
     <!-- End Meta Pixel Code -->
 </head>
 <body style="text-align:center; font-family:sans-serif; background-color:#2e004f; color:white; padding: 2em;">
-    <img src="https://raw.githubusercontent.com/facugrasso/vegasbett/main/logo-oficial.png" alt="VegasBett" style="width:200px; margin-bottom: 2em;">
+    <img src="https://raw.githubusercontent.com/facugrasso/jugayganavegasbett/main/logo-oficial.png" alt="VegasBett" style="width:200px; margin-bottom: 2em;">
     <h1>¡Bienvenido a VegasBett!</h1>
     <p>Tu casino online favorito. ¡Reclamá tu bono ahora!</p>
     <button onclick="contactar()" style="padding: 1em 2em; margin-top: 2em; font-size: 18px;">Contactar por WhatsApp</button>
@@ -38,6 +38,22 @@
 
         function reportarCarga() {
             fbq('track', 'Purchase');
+
+            // Enviar a Google Sheets
+            fetch("https://script.google.com/macros/s/AKfycbx7WBiy0K6dp8F3T3Lz6pZ_hDhd93YT_QdYyvx53YtFqSVSrEVS0no1G6-iKfN5PZAG/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    fecha: new Date().toLocaleString(),
+                    evento: "Ya hice mi carga",
+                    url: window.location.href
+                })
+            });
+
+            // Enviar evento a Meta API
             fetch('https://graph.facebook.com/v18.0/744701734645233/events?access_token=EAAKMYNrmVAABOxgGGUaB3RDsDtbaUX4gI0lbaI5rmpnuZASwaMBFB5cMkktFRmxqYx9CPQgZC4uwYMRCj5UgtxCDMF3gz9hNaecXMp8JEk8tcJgufav4ESen7cvjmtID9GSwlABup3r0T8WZCqjmqZCEVRT9hxgGxacZCFKc2iApuwTKkopWSeKS3FyEhZBAwWEwZDZD', {
                 method: 'POST',
                 headers: {
@@ -53,10 +69,12 @@
                     }]
                 })
             });
+
             setTimeout(() => {
                 window.location.href = "https://wa.me/542233415879?text=Quiero%20mi%20Bono";
-            }, 1000);
+            }, 1200);
         }
     </script>
 </body>
 </html>
+
